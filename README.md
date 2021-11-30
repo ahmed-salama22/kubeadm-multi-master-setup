@@ -198,22 +198,24 @@ The command effectively becomes -
 kubeadm init --control-plane-endpoint "loadbalancer:6443" --upload-certs --pod-network-cidr=192.168.0.0/16 
 ```
 
-# if an error occur say that kubelet isn't running or healthy , it is because  The problem was cgroup driver. Kubernetes cgroup driver was set to systems but docker was set to systemd
+if an error occur say that kubelet isn't running or healthy , it is because  The problem was cgroup driver. Kubernetes cgroup driver was set to systems but docker was set to systemd
 
-'''
+```
 vim /etc/docker/daemon.json
+
 {
     "exec-opts": ["native.cgroupdriver=systemd"]
 }
-'''
+```
 
-'''
+```
  sudo systemctl daemon-reload
  sudo systemctl restart docker
  sudo systemctl restart kubelet
-'''
+```
 
 then try the kubeadm join again
+
 
 ![image](https://user-images.githubusercontent.com/44743158/68580013-7bb31f80-049b-11ea-8394-5fb9b9465552.png)
 
