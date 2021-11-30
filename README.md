@@ -192,14 +192,6 @@ Here, LOAD_BALANCER_DNS is the IP address or the dns name of the loadbalancer. I
 
 The LOAD_BALANCER_PORT is the front end configuration port defined in HAPROXY configuration. For this demo, we have kept the port as **6443**. 
 
-The command effectively becomes - 
-
-```
-kubeadm init --control-plane-endpoint "loadbalancer:6443" --upload-certs --pod-network-cidr=192.168.0.0/16 
-```
-
-if an error occur say that kubelet isn't running or healthy , it is because  The problem was cgroup driver. Kubernetes cgroup driver was set to systems but docker was set to systemd , the same thing is made if happen when joining another control plane to the cluster 
-
 ```
 vim /etc/docker/daemon.json
 
@@ -213,6 +205,13 @@ vim /etc/docker/daemon.json
  sudo systemctl restart docker
  sudo systemctl restart kubelet
 ```
+
+The command effectively becomes - 
+
+```
+kubeadm init --control-plane-endpoint "loadbalancer:6443" --upload-certs --pod-network-cidr=192.168.0.0/16 
+```
+
 ```
 kubeadm reset
 ```
