@@ -231,7 +231,7 @@ kubeadm join loadbalancer:6443 --token cnslau.kd5fjt96jeuzymzb \
 ```
 
 
-The output consists of 3 major tasks - 
+The output consists of 3 major tasks - (we will apply them below )
 
 1. Setup kubeconfig using - 
 
