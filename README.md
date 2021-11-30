@@ -212,10 +212,6 @@ The command effectively becomes -
 kubeadm init --control-plane-endpoint "loadbalancer:6443" --upload-certs --pod-network-cidr=192.168.0.0/16 
 ```
 
-```
-kubeadm reset
-```
-
 Now try the kubeadm join again
 
 
