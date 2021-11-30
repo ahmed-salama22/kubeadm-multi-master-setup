@@ -183,7 +183,7 @@ We will start off by initializing only one master node. For this demo, we will u
 * Log in to **master1** 
 * Switch to root account - `sudo -i` 
 * Execute the below command to initialize the cluster - 
-
+-- note the range must be different than the range used between the cluster (if we use 172.32.11.32/16 so use something like 10.x.x.x or 192.168.x.x )
 ```
 kubeadm init --control-plane-endpoint "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT" --upload-certs --pod-network-cidr=192.168.0.0/16 
 ```
