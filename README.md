@@ -236,13 +236,14 @@ The output consists of 3 major tasks -
 1. Setup kubeconfig using - 
 
 ```
+  # on loadBalancerto distribute the commands to the master nodes 
   mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo scp master1:/etc/kubernetes/admin.conf $HOME/.kube/config
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 ```
 
-2. Setup new control plane (master) using 
+2. Setup new control plane (master) (on the other master nodes)
 
 ```
   kubeadm join loadbalancer:6443 --token cnslau.kd5fjt96jeuzymzb \
@@ -251,7 +252,7 @@ The output consists of 3 major tasks -
 
 ```
 
-3. Join worker node using 
+3. Join worker node using (on worker nodes )
 
 ```
 kubeadm join loadbalancer:6443 --token cnslau.kd5fjt96jeuzymzb \
