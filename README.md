@@ -177,7 +177,28 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 
 ## Configure kubeadm to bootstrap the cluster 
 
+because of docker use cgroup by default and linux use systemd , we need to make docker use systemd
 
+```
+vim /etc/docker/daemon.json
+
+{
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+
+
+```
+
+```
+ sudo systemctl daemon-reload
+ sudo systemctl restart docker
+ sudo systemctl restart kubelet
+```
 We will start off by initializing only one master node. For this demo, we will use master1 to initialize our first control plane. 
 
 * Log in to **master1** 
@@ -189,25 +210,9 @@ kubeadm init --control-plane-endpoint "LOAD_BALANCER_DNS:LOAD_BALANCER_PORT" --u
 ```
 
 Here, LOAD_BALANCER_DNS is the IP address or the dns name of the loadbalancer. I will use the dns name of the server, i.e. `loadbalancer` as the LOAD_BALANCER_DNS. In case your DNS name is not resolvable across your network, you can use the IP address for the same. 
-
 The LOAD_BALANCER_PORT is the front end configuration port defined in HAPROXY configuration. For this demo, we have kept the port as **6443**. 
 
-```
-vim /etc/docker/daemon.json
-
-{
-    "exec-opts": ["native.cgroupdriver=systemd"]
-}
-```
-
-```
- sudo systemctl daemon-reload
- sudo systemctl restart docker
- sudo systemctl restart kubelet
-```
-
-The command effectively becomes - 
-
+Now Run
 ```
 kubeadm init --control-plane-endpoint "loadbalancer:6443" --upload-certs --pod-network-cidr=192.168.0.0/16 
 ```
