@@ -178,6 +178,8 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 
 ## Configure kubeadm to bootstrap the cluster 
 
+
+-- skip them if there is an error in kubeadm init , make `kubeadm reset --force` and run them then initialize 
 because of docker use cgroup by default and linux use systemd , we need to make docker use systemd
 
 ```
@@ -191,6 +193,8 @@ vim /etc/docker/daemon.json
   },
   "storage-driver": "overlay2"
 }
+
+kubeadm init phase kubelet-start
 
 
 ```
