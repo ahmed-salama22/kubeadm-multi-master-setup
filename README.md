@@ -194,15 +194,14 @@ vim /etc/docker/daemon.json
   "storage-driver": "overlay2"
 }
 
-kubeadm init phase kubelet-start
-
-
 ```
 
 ```
  sudo systemctl daemon-reload
  sudo systemctl restart docker
  sudo systemctl restart kubelet
+ kubeadm init phase kubelet-start
+
 ```
 We will start off by initializing only one master node. For this demo, we will use master1 to initialize our first control plane. 
 
