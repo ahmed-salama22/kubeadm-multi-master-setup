@@ -15,7 +15,8 @@ For this demo, we will use 2 master and 2 worker node to create a multi master k
 * sudo privilege 
 * ssh access from loadbalancer node to all machines (master & worker). 
 * ssh access can be given to any account. ssh through root is not mandatory
-
+* hostname with master1,master2,worker1,worker2,loadbalancer and define in the /etc/hosts 
+ 
 Note that we will not cover ssh setup between loadbalancer. 
 
 Below are my virtual machines on GCP - region - us-west1
